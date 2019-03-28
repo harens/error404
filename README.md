@@ -1,4 +1,7 @@
 # error404
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bd663add46814e25b3a98c01ac8a6c8f)](https://app.codacy.com/app/harens/error404?utm_source=github.com&utm_medium=referral&utm_content=harens/error404&utm_campaign=Badge_Grade_Dashboard)
+
 __Colourful tests for Python!__
 
 ![Example 1](https://github.com/harens/error404/blob/master/art/example1.png)
