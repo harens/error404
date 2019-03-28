@@ -17,10 +17,8 @@
 from inspect import stack
 from time import time
 from os import _exit
+from error404 import config
 import atexit
-
-# Global counter for all tests
-number_success = number_failed = total_tests = total_time = 0
 
 
 def test(function, value):
@@ -36,8 +34,7 @@ def test(function, value):
         str: Outputs whether test failed/succeeded. If failed, additional information supplied
     """
     start_time = time()  # Time taken
-    global total_tests
-    total_tests += 1
+    config.total_tests += 1
 
     # Retrieves info about the caller function from the stack
     line_num = str(stack()[1][2])
@@ -52,8 +49,7 @@ def test(function, value):
     # If the output was expected
     if function == value:
         print("✅ {0} Succeeded".format(function_name))
-        global number_success
-        number_success += 1
+        config.number_success += 1
     else:
         print()
         print(
@@ -62,12 +58,10 @@ def test(function, value):
         # Format adds output data types
         print("Program Output:", function, "({0})".format(type(function).__name__))
         print("Expected Output:", value, "({0})".format(type(value).__name__))
-        global number_failed
-        number_failed += 1
+        config.number_failed += 1
         print()
-    global total_time
     # Adds time taken to total time
-    total_time += time() - start_time
+    config.total_time += time() - start_time
 
 
 @atexit.register  # Automatically executed upon normal interpreter termination
@@ -80,16 +74,16 @@ def final_output():
     Returns:
         exit(1) if any test fails
     """
-    if total_tests != 0:  # Output only if tests were run
-        func_time = round(total_time, 4)
+    if config.total_tests != 0:  # Output only if tests were run
+        func_time = round(config.total_time, 4)
         print("\n" * 2)
-        if number_failed == 0:
+        if config.number_failed == 0:
             print(
                 "Out of {0} tests, all succeeded in {1} seconds".format(
-                    total_tests, func_time
+                    config.total_tests, func_time
                 )
             )
-        elif number_success == 0:
+        elif config.number_success == 0:
             print(
                 "Out of {0} tests, all failed in {1} seconds".format(
                     total_tests, func_time
@@ -100,13 +94,13 @@ def final_output():
         else:
             print(
                 "Out of {0} tests, {1} succeeded and {2} failed in {3} seconds".format(
-                    total_tests, number_success, number_failed, func_time
+                    config.total_tests, config.number_success, config.number_failed, func_time
                 )
             )
             # Success rate rounded to 2 d.p.
             print(
                 "This gives a success rate of {0}%".format(
-                    round((number_success / total_tests) * 100), 2
+                    round((config.number_success / config.total_tests) * 100), 2
                 )
             )
             _exit(1)
