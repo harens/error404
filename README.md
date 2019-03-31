@@ -1,6 +1,11 @@
 # error404
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bd663add46814e25b3a98c01ac8a6c8f)](https://app.codacy.com/app/harens/error404?utm_source=github.com&utm_medium=referral&utm_content=harens/error404&utm_campaign=Badge_Grade_Dashboard)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/harens/error404.svg?style=for-the-badge)](https://codeclimate.com/github/harens/error404)
+[![Codacy grade](https://img.shields.io/codacy/grade/6e4af45add524fbc8b173760e5a72eb0.svg?style=for-the-badge)](https://app.codacy.com/project/harens/error404/dashboard)
+[![Latest PyPi release version number](https://img.shields.io/pypi/v/error404.svg?logoColor=violet&style=for-the-badge)](https://pypi.org/project/error404/)
+[![PyPi format](https://img.shields.io/pypi/format/error404.svg?style=for-the-badge)](https://pypi.org/project/error404/)
+[![Current state (Alpha/Beta/Stable etc.)](https://img.shields.io/pypi/status/error404.svg?style=for-the-badge)](https://pypi.org/project/error404/)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/error404.svg?style=for-the-badge)](https://pypi.org/project/error404/)
 
 __Colourful tests for Python!__
 

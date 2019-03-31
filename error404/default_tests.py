@@ -34,7 +34,6 @@ def test(function, value):
         str: Outputs whether test failed/succeeded. If failed, additional information supplied
     """
     start_time = time()  # Time taken
-    config.total_tests += 1
 
     # Retrieves info about the caller function from the stack
     line_num = str(stack()[1][2])
@@ -61,6 +60,7 @@ def test(function, value):
         config.number_failed += 1
         print()
     # Adds time taken to total time
+    config.total_tests += 1
     config.total_time += time() - start_time
 
 
@@ -94,7 +94,10 @@ def final_output():
         else:
             print(
                 "Out of {0} tests, {1} succeeded and {2} failed in {3} seconds".format(
-                    config.total_tests, config.number_success, config.number_failed, func_time
+                    config.total_tests,
+                    config.number_success,
+                    config.number_failed,
+                    func_time,
                 )
             )
             # Success rate rounded to 2 d.p.
