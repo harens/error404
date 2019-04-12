@@ -15,4 +15,11 @@
 # along with error404.  If not, see <http://www.gnu.org/licenses/>.
 
 # Global counter for all tests
-number_success = number_failed = total_tests = total_time = 0
+# total_tests -> Total number of tests to be run
+# current_test -> The current test to be run
+number_success = number_failed = total_tests = total_time = current_test = 0
+
+# Displays the number of times a function has been tested
+func_counter = {"name": None, "counter": 1}
+
+file_name = "Interactive Mode"

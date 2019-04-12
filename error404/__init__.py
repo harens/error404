@@ -1,3 +1,15 @@
-from .default_tests import test
+"""
+error404
+========
 
-__version__ = "0.0.1"
+A simple testing module for Python
+
+
+"""
+
+
+from .results import test_results, clear_results
+from .tests import test
+
+__version__ = "1.0"
+__all__ = ["test", "test_results", "clear_results"]
