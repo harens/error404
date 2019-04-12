@@ -16,7 +16,9 @@
 
 from inspect import stack
 from time import time
+from sys import modules
 import __main__ as main
+from math import inf
 from error404 import config, test_results
 
 
@@ -37,15 +39,18 @@ def test(function, value):
     # Retrieves info about the caller function from the stack
     line_num = str(stack()[1][2])
 
-    # If it isn't running in interactive mode
+    # If it isn't running in interactive mode or if it's in a .pynb
     # File and function name is determined
-    if hasattr(main, "__file__"):
+    if hasattr(main, "__file__") or 'ipykernel' in modules:
         function_name = "".join(stack()[1][4])
 
         config.file_name = stack()[1][1]
-        with open(config.file_name) as f:
-            contents = f.read()  # Counts the total number of tests run in the file
-            config.total_tests = contents.count("test(")
+        if 'ipykernel' not in modules:  # Can't be in .pynv
+            with open(config.file_name) as f:
+                contents = f.read()  # Counts the total number of tests run in the file
+                config.total_tests = contents.count("test(")
+        else:  # Does not display final results
+            config.total_tests = inf
     else:
         config.file_name = "Interactive Mode"
         function_name = "(Function("
@@ -90,7 +95,7 @@ def test(function, value):
     config.current_test += 1
     config.total_time += time() - start_time
 
-    if config.file_name == "Interactive Mode":
+    if config.file_name == "Interactive Mode":  # If in interactive mode
         config.total_tests += 1
         test_results()
     elif config.current_test == config.total_tests:
