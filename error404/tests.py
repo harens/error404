@@ -41,11 +41,11 @@ def test(function, value):
 
     # If it isn't running in interactive mode or if it's in a .pynb
     # File and function name is determined
-    if hasattr(main, "__file__") or 'ipykernel' in modules:
+    if hasattr(main, "__file__") or "ipykernel" in modules:
         function_name = "".join(stack()[1][4])
 
         config.file_name = stack()[1][1]
-        if 'ipykernel' not in modules:  # Can't be in .pynv
+        if "ipykernel" not in modules:  # Can't be in .pynv
             with open(config.file_name) as f:
                 contents = f.read()  # Counts the total number of tests run in the file
                 config.total_tests = contents.count("test(")
