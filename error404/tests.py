@@ -18,8 +18,19 @@ from inspect import stack
 from time import time
 from sys import modules
 import __main__ as main
-from math import inf
 from error404 import config, test_results
+
+# Checks if being run in .ipnyb file
+if "ipykernel" in modules:
+    in_ipnyb = True
+else:
+    in_ipnyb = False
+
+# If file is being run in Interactive Mode (i.e. IDLE, iPython, etc.)
+if not hasattr(main, "__file__"):
+    interactive_mode = True
+else:
+    interactive_mode = False
 
 
 def test(function, value):
@@ -41,16 +52,14 @@ def test(function, value):
 
     # If it isn't running in interactive mode or if it's in a .pynb
     # File and function name is determined
-    if hasattr(main, "__file__") or "ipykernel" in modules:
+    if not interactive_mode or in_ipnyb:
         function_name = "".join(stack()[1][4])
 
         config.file_name = stack()[1][1]
-        if "ipykernel" not in modules:  # Can't be in .pynv
+        if not in_ipnyb:
             with open(config.file_name) as f:
-                contents = f.read()  # Counts the total number of tests run in the file
+                contents = f.read()  # Counts the total number of tests written in the file
                 config.total_tests = contents.count("test(")
-        else:  # Does not display final results
-            config.total_tests = inf
     else:
         config.file_name = "Interactive Mode"
         function_name = "(Function("
@@ -89,14 +98,17 @@ def test(function, value):
         )
         # Format adds output data types
         print("Program Output:", function, "({0})".format(type(function).__name__))
-        print("Expected Output:", value, "({0})".format(type(value).__name__))
+        print("Expected Output:", value, "({0})\n".format(type(value).__name__))
         config.number_failed += 1
-        print()
     config.current_test += 1
-    config.total_time += time() - start_time
+    config.total_time += (time() - start_time)
 
-    if config.file_name == "Interactive Mode":  # If in interactive mode
+    if in_ipnyb:
         config.total_tests += 1
-        test_results()
-    elif config.current_test == config.total_tests:
+    elif interactive_mode:
+        config.total_tests += 1
+        test_results()  # Shows final results after each test
+    elif (
+        config.current_test == config.total_tests
+    ):  # Runs when all counted tests have finished
         test_results()
