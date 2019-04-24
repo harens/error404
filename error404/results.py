@@ -15,7 +15,7 @@
 # along with error404.  If not, see <http://www.gnu.org/licenses/>.
 
 from error404 import config
-
+from sys import modules
 
 def test_results():
     """Overview of test results.
@@ -45,7 +45,8 @@ def test_results():
                     config.total_tests, func_time
                 )
             )
-            exit(1)
+            if "ipykernel" not in modules:
+                exit(1)
         # If some tests failed and others succeeded
         else:
             print(
@@ -59,7 +60,8 @@ def test_results():
             success_rate = (config.number_success / config.total_tests) * 100
             # Success rate rounded to 2 d.p.
             print("This gives a success rate of {0}%".format(round(success_rate, 2)))
-            exit(1)
+            if "ipykernel" not in modules:
+                exit(1)
 
 
 def clear_results():
