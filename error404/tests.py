@@ -107,7 +107,6 @@ def test(function, value):
         config.total_tests += 1
     elif interactive_mode:
         config.total_tests += 1
-        test_results()  # Shows final results after each test
     elif (
         config.current_test == config.total_tests
     ):  # Runs when all counted tests have finished

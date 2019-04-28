@@ -15,7 +15,21 @@
 # along with error404.  If not, see <http://www.gnu.org/licenses/>.
 
 from error404 import config
-from sys import modules
+from sys import modules, exit
+import __main__ as main
+
+# Checks if being run in .ipnyb file
+if "ipykernel" in modules:
+    in_ipnyb = True
+else:
+    in_ipnyb = False
+
+# If file is being run in Interactive Mode (i.e. IDLE, iPython, etc.)
+if not hasattr(main, "__file__"):
+    interactive_mode = True
+else:
+    interactive_mode = False
+
 
 def test_results():
     """Overview of test results.
@@ -45,7 +59,7 @@ def test_results():
                     config.total_tests, func_time
                 )
             )
-            if "ipykernel" not in modules:
+            if not in_ipnyb and not interactive_mode:
                 exit(1)
         # If some tests failed and others succeeded
         else:
@@ -60,8 +74,9 @@ def test_results():
             success_rate = (config.number_success / config.total_tests) * 100
             # Success rate rounded to 2 d.p.
             print("This gives a success rate of {0}%".format(round(success_rate, 2)))
-            if "ipykernel" not in modules:
+            if not in_ipnyb and not interactive_mode:
                 exit(1)
+    clear_results()
 
 
 def clear_results():

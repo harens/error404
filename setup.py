@@ -23,7 +23,7 @@ with open("README.md") as f:
 
 setup(
     name="error404",
-    version="1.1.2",
+    version="1.1.3",
     description="Colourful tests for Python!",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -34,11 +34,12 @@ setup(
     url="https://harens.github.io",
     download_url="https://github.com/harens/error404/archive/master.zip",
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Operating System :: OS Independent",
-        "Intended Audience :: Information Technology",
+        "Intended Audience :: Developers",
         "Intended Audience :: Education",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Natural Language :: English",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
