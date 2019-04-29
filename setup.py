@@ -23,7 +23,7 @@ with open("README.md") as f:
 
 setup(
     name="error404",
-    version="1.1.3",
+    version="1.1.4",
     description="Colourful tests for Python!",
     long_description=long_description,
     long_description_content_type="text/markdown",

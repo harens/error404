@@ -31,7 +31,7 @@ else:
     interactive_mode = False
 
 
-def test_results():
+def test_results(decimal_points=4):
     """Overview of test results.
 
     Provides extended information about how successful the tests were
@@ -45,7 +45,7 @@ def test_results():
     if (
         config.total_tests != 0
     ):  # Output only if tests were run (or always if in interactive)
-        func_time = round(config.total_time, 4)
+        func_time = round(config.total_time, decimal_points)
         print("\n" * 2)
         if config.number_failed == 0:
             print(
