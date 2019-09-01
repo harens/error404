@@ -21,19 +21,13 @@ import __main__ as main
 from error404 import config, test_results
 
 # Checks if being run in .ipnyb file
-if "ipykernel" in modules:
-    in_ipnyb = True
-else:
-    in_ipnyb = False
+config.in_ipnyb: bool = "ipykernel" in modules
 
 # If file is being run in Interactive Mode (i.e. IDLE, iPython, etc.)
-if not hasattr(main, "__file__"):
-    interactive_mode = True
-else:
-    interactive_mode = False
+config.interactive_mode = not hasattr(main, "__file__")
 
 
-def test(function, value):
+def test(function: any, value: any):
     """ error404 Default Test Function
 
     Concept based on spscah test function
@@ -43,7 +37,7 @@ def test(function, value):
         function: Function to be run
         value: Expected value
     Returns:
-        str: Outputs whether test failed/succeeded. If failed, additional information supplied
+        str: Outputs whether test failed/succeeded. More info given if failed
     """
     start_time = time()  # Time taken
 
@@ -52,13 +46,15 @@ def test(function, value):
 
     # If it isn't running in interactive mode or if it's in a .pynb
     # File and function name is determined
-    if not interactive_mode or in_ipnyb:
+    if not config.interactive_mode or config.in_ipnyb:
         function_name = "".join(stack()[1][4])
 
         config.file_name = stack()[1][1]
-        if not in_ipnyb:
+        if not config.in_ipnyb:
             with open(config.file_name) as f:
-                contents = f.read()  # Counts the total number of tests written in the file
+                contents = (
+                    f.read()
+                )  # Counts the total number of tests written in the file
                 config.total_tests = contents.count("test(")
     else:
         config.file_name = "Interactive Mode"
@@ -68,7 +64,7 @@ def test(function, value):
     starting_bracket = function_name.index("(") + 1
     finish_bracket = function_name.index("(", starting_bracket + 1)
 
-    # Removes irrelevent info from code_context
+    # Removes irrelevant info from code_context
     function_name = function_name[starting_bracket:finish_bracket]
 
     # Increases function counter if the same function is retested
@@ -79,33 +75,23 @@ def test(function, value):
         config.func_counter["counter"] = 1
 
     # If the output was expected
+    # TODO: Remove print statements and add to unified string output, that can be returned
     if function == value:
-        print(
-            "✅ {0} ({1}) Succeeded".format(
-                function_name, config.func_counter["counter"]
-            )
-        )
+        print(f"✅ {function_name} ({config.func_counter['counter']}) Succeeded")
         config.number_success += 1
     else:
-        print()
         print(
-            "❌ {0} ({1}) failed at line {2} in {3}".format(
-                function_name,
-                config.func_counter["counter"],
-                line_num,
-                config.file_name,
-            )
+            f"\n❌ {function_name} ({config.func_counter['counter']}) failed at line {line_num} in {config.file_name}"
         )
+
         # Format adds output data types
-        print("Program Output:", function, "({0})".format(type(function).__name__))
-        print("Expected Output:", value, "({0})\n".format(type(value).__name__))
+        print(f"Program Output: {function} ({type(function).__name__}")
+        print(f"Expected Output: {value} ({type(value).__name__})\n")
         config.number_failed += 1
     config.current_test += 1
-    config.total_time += (time() - start_time)
+    config.total_time += time() - start_time
 
-    if in_ipnyb:
-        config.total_tests += 1
-    elif interactive_mode:
+    if config.in_ipnyb or config.interactive_mode:
         config.total_tests += 1
     elif (
         config.current_test == config.total_tests

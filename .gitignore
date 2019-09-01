@@ -250,3 +250,5 @@ dmypy.json
 \.idea/
 
 example\.py
+
+\.vscode/settings\.json

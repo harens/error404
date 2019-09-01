@@ -14,24 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with error404.  If not, see <http://www.gnu.org/licenses/>.
 
-from error404 import config
-from sys import modules, exit
-import __main__ as main
-
-# Checks if being run in .ipnyb file
-if "ipykernel" in modules:
-    in_ipnyb = True
-else:
-    in_ipnyb = False
-
-# If file is being run in Interactive Mode (i.e. IDLE, iPython, etc.)
-if not hasattr(main, "__file__"):
-    interactive_mode = True
-else:
-    interactive_mode = False
+from error404 import config  # type: ignore
+from sys import exit
 
 
-def test_results(decimal_points=4):
+def test_results(decimal_points: int = 4):
     """Overview of test results.
 
     Provides extended information about how successful the tests were
@@ -49,32 +36,23 @@ def test_results(decimal_points=4):
         print("\n" * 2)
         if config.number_failed == 0:
             print(
-                "Out of {0} tests, all succeeded in {1} seconds".format(
-                    config.total_tests, func_time
-                )
+                f"Out of {config.total_tests} tests, all succeeded in {func_time} seconds"
             )
         elif config.number_success == 0:
             print(
-                "Out of {0} tests, all failed in {1} seconds".format(
-                    config.total_tests, func_time
-                )
+                "Out of {config.total_tests} tests, all failed in {func_time} seconds"
             )
-            if not in_ipnyb and not interactive_mode:
+            if not config.in_ipnyb and not config.interactive_mode:
                 exit(1)
         # If some tests failed and others succeeded
         else:
             print(
-                "Out of {0} tests, {1} succeeded and {2} failed in {3} seconds".format(
-                    config.total_tests,
-                    config.number_success,
-                    config.number_failed,
-                    func_time,
-                )
+                f"Out of {config.total_tests} tests, {config.number_success} succeeded and {config.number_failed} failed in {func_time} seconds"
             )
             success_rate = (config.number_success / config.total_tests) * 100
             # Success rate rounded to 2 d.p.
-            print("This gives a success rate of {0}%".format(round(success_rate, 2)))
-            if not in_ipnyb and not interactive_mode:
+            print(f"This gives a success rate of {round(success_rate, 2)}%")
+            if not config.in_ipnyb and not config.interactive_mode:
                 exit(1)
     clear_results()
 
