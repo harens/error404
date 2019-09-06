@@ -16,18 +16,11 @@
 
 from inspect import stack
 from time import time
-from sys import modules
-import __main__ as main
 from error404 import config, test_results
-
-# Checks if being run in .ipnyb file
-config.in_ipnyb: bool = "ipykernel" in modules
-
-# If file is being run in Interactive Mode (i.e. IDLE, iPython, etc.)
-config.interactive_mode = not hasattr(main, "__file__")
+from typing import Any
 
 
-def test(function: any, value: any):
+def test(function: Any, value: Any) -> None:
     """ error404 Default Test Function
 
     Concept based on spscah test function
@@ -39,15 +32,15 @@ def test(function: any, value: any):
     Returns:
         str: Outputs whether test failed/succeeded. More info given if failed
     """
-    start_time = time()  # Time taken
+    start_time: float = time()  # Time taken
 
     # Retrieves info about the caller function from the stack
-    line_num = str(stack()[1][2])
+    line_num: str = str(stack()[1][2])
 
     # If it isn't running in interactive mode or if it's in a .pynb
     # File and function name is determined
     if not config.interactive_mode or config.in_ipnyb:
-        function_name = "".join(stack()[1][4])
+        function_name: str = "".join(stack()[1][4])
 
         config.file_name = stack()[1][1]
         if not config.in_ipnyb:
@@ -61,27 +54,27 @@ def test(function: any, value: any):
         function_name = "(Function("
 
     # Where the user's function begins and finishes
-    starting_bracket = function_name.index("(") + 1
-    finish_bracket = function_name.index("(", starting_bracket + 1)
+    starting_bracket: int = function_name.index("(") + 1
+    finish_bracket: int = function_name.index("(", starting_bracket + 1)
 
     # Removes irrelevant info from code_context
     function_name = function_name[starting_bracket:finish_bracket]
 
     # Increases function counter if the same function is retested
-    if config.func_counter["name"] == function_name:
-        config.func_counter["counter"] += 1
+    if config.func_name == function_name:
+        config.func_count += 1
     else:
-        config.func_counter["name"] = function_name
-        config.func_counter["counter"] = 1
+        config.func_name = function_name
+        config.func_count = 1
 
     # If the output was expected
     # TODO: Remove print statements and add to unified string output, that can be returned
     if function == value:
-        print(f"✅ {function_name} ({config.func_counter['counter']}) Succeeded")
+        print(f"✅ {function_name} ({config.func_count}) Succeeded")
         config.number_success += 1
     else:
         print(
-            f"\n❌ {function_name} ({config.func_counter['counter']}) failed at line {line_num} in {config.file_name}"
+            f"\n❌ {function_name} ({config.func_count}) failed at line {line_num} in {config.file_name}"
         )
 
         # Format adds output data types

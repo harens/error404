@@ -14,12 +14,27 @@
 # You should have received a copy of the GNU General Public License
 # along with error404.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Optional
+from sys import modules
+import __main__ as main
+
+# Checks if being run in .ipnyb file
+in_ipnyb: bool = "ipykernel" in modules
+
+# If file is being run in Interactive Mode (i.e. IDLE, iPython, etc.)
+interactive_mode: bool = not hasattr(main, "__file__")
+
 # Global counter for all tests
 # total_tests -> Total number of tests to be run
 # current_test -> The current test to be run
-number_success = number_failed = total_tests = total_time = current_test = 0
+
+# 0.0 to give type float
+
+number_success = number_failed = total_tests = total_time = current_test = 0.0
 
 # Displays the number of times a function has been tested
-func_counter = {"name": None, "counter": 1}
 
-file_name = "Interactive Mode"
+func_name: Optional[str] = None
+func_count: int = 1
+
+file_name: str = "Interactive Mode"

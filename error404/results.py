@@ -14,11 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with error404.  If not, see <http://www.gnu.org/licenses/>.
 
-from error404 import config  # type: ignore
+from error404 import config
 from sys import exit
 
 
-def test_results(decimal_points: int = 4):
+def test_results(decimal_points: int = 4) -> None:
     """Overview of test results.
 
     Provides extended information about how successful the tests were
@@ -32,7 +32,7 @@ def test_results(decimal_points: int = 4):
     if (
         config.total_tests != 0
     ):  # Output only if tests were run (or always if in interactive)
-        func_time = round(config.total_time, decimal_points)
+        func_time: float = round(config.total_time, decimal_points)
         print("\n" * 2)
         if config.number_failed == 0:
             print(
@@ -49,7 +49,7 @@ def test_results(decimal_points: int = 4):
             print(
                 f"Out of {config.total_tests} tests, {config.number_success} succeeded and {config.number_failed} failed in {func_time} seconds"
             )
-            success_rate = (config.number_success / config.total_tests) * 100
+            success_rate: float = (config.number_success / config.total_tests) * 100
             # Success rate rounded to 2 d.p.
             print(f"This gives a success rate of {round(success_rate, 2)}%")
             if not config.in_ipnyb and not config.interactive_mode:
@@ -57,7 +57,7 @@ def test_results(decimal_points: int = 4):
     clear_results()
 
 
-def clear_results():
+def clear_results() -> None:
     """Clears total test successes/failures
 
     Does not return any values
@@ -66,4 +66,5 @@ def clear_results():
         config.number_failed
     ) = config.total_tests = config.total_time = config.current_test = 0
 
-    config.func_counter = {"name": None, "counter": 1}
+    config.func_name = None
+    config.func_count = 1
