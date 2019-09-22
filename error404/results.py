@@ -15,7 +15,14 @@
 # along with error404.  If not, see <http://www.gnu.org/licenses/>.
 
 from error404 import config
-from sys import exit
+from sys import modules, exit
+import __main__ as main
+
+# Checks if being run in .ipnyb file
+in_ipnyb = "ipykernel" in modules
+
+# If file is being run in Interactive Mode (i.e. IDLE, iPython, etc.)
+interactive_mode = not hasattr(main, "__file__")
 
 
 def test_results(decimal_points: int = 4) -> None:
@@ -32,7 +39,7 @@ def test_results(decimal_points: int = 4) -> None:
     if (
         config.total_tests != 0
     ):  # Output only if tests were run (or always if in interactive)
-        func_time: float = round(config.total_time, decimal_points)
+        func_time = round(config.total_time, decimal_points)
         print("\n" * 2)
         if config.number_failed == 0:
             print(
@@ -42,17 +49,17 @@ def test_results(decimal_points: int = 4) -> None:
             print(
                 "Out of {config.total_tests} tests, all failed in {func_time} seconds"
             )
-            if not config.in_ipnyb and not config.interactive_mode:
+            if not in_ipnyb and not interactive_mode:
                 exit(1)
         # If some tests failed and others succeeded
         else:
             print(
                 f"Out of {config.total_tests} tests, {config.number_success} succeeded and {config.number_failed} failed in {func_time} seconds"
             )
-            success_rate: float = (config.number_success / config.total_tests) * 100
+            success_rate = (config.number_success / config.total_tests) * 100
             # Success rate rounded to 2 d.p.
             print(f"This gives a success rate of {round(success_rate, 2)}%")
-            if not config.in_ipnyb and not config.interactive_mode:
+            if not in_ipnyb and not interactive_mode:
                 exit(1)
     clear_results()
 
@@ -66,5 +73,4 @@ def clear_results() -> None:
         config.number_failed
     ) = config.total_tests = config.total_time = config.current_test = 0
 
-    config.func_name = None
-    config.func_count = 1
+    config.func_counter = {"name": "(NONE)", "counter": 1}
