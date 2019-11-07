@@ -47,7 +47,7 @@ def test_results(decimal_points: int = 4) -> None:
             )
         elif config.number_success == 0:
             print(
-                "Out of {config.total_tests} tests, all failed in {func_time} seconds"
+                f"Out of {config.total_tests} tests, all failed in {func_time} seconds"
             )
             if not in_ipnyb and not interactive_mode:
                 exit(1)
