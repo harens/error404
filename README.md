@@ -8,7 +8,7 @@
 [![Current state (Alpha/Beta/Stable etc.)](https://img.shields.io/pypi/status/error404.svg?style=for-the-badge)](https://pypi.org/project/error404/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/error404.svg?style=for-the-badge)](https://pypi.org/project/error404/)
 
-__Colourful tests for Python!__
+__*An easy-to-use testing module, that doesn't require the terminal!*__
 
 ![Example 1](https://raw.githubusercontent.com/harens/error404/master/art/example1.png)
 
@@ -19,12 +19,12 @@ pip install error404
 
 Or download the project [here](https://github.com/harens/error404/archive/master.zip)
 
-## How to use
+## Usage
 
 For the first parameter of the `test` function, insert the function and its input
 
 Then, add the expected result:
-```
+```python
 test(some_function(function_input), expected_result)
 ```
 
@@ -35,7 +35,7 @@ Only the `test` function has to be imported
 
 `test_results` is run at the end to display how many succeeded
 
-```
+```python
 from error404 import test
 
 # Example Functions
@@ -62,7 +62,7 @@ In interactive mode, you can still use just the `test` function
 However, if you want to __restart the counter__, import `clear_results`, which is silent.
 
 If you want to see the __overall results__, import `test_results`. This also runs `clear_results` afterwards.
-```
+```python
 from error404 import test, test_results
 >>> def demo(greeting):
 	return greeting
