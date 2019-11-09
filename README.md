@@ -62,7 +62,7 @@ In interactive mode, you can still use just the `test` function
 However, if you want to __restart the counter__, import `clear_results`, which is silent.
 
 If you want to see the __overall results__, import `test_results`. This also runs `clear_results` afterwards.
-```python
+```
 from error404 import test, test_results
 >>> def demo(greeting):
 	return greeting
