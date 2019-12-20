@@ -1,12 +1,12 @@
 # error404
 
-[![LGTM Grade](https://img.shields.io/lgtm/grade/python/g/harens/error404.svg?style=for-the-badge)](https://lgtm.com/projects/g/harens/error404/overview/)
-[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/harens/error404.svg?style=for-the-badge)](https://codeclimate.com/github/harens/error404)
-[![Codacy grade](https://img.shields.io/codacy/grade/6e4af45add524fbc8b173760e5a72eb0.svg?style=for-the-badge)](https://app.codacy.com/project/harens/error404/dashboard)
-[![Latest PyPi release version number](https://img.shields.io/pypi/v/error404.svg?logoColor=violet&style=for-the-badge)](https://pypi.org/project/error404/)
-[![PyPi format](https://img.shields.io/pypi/format/error404.svg?style=for-the-badge)](https://pypi.org/project/error404/)
-[![Current state (Alpha/Beta/Stable etc.)](https://img.shields.io/pypi/status/error404.svg?style=for-the-badge)](https://pypi.org/project/error404/)
-[![Supported Python versions](https://img.shields.io/pypi/pyversions/error404.svg?style=for-the-badge)](https://pypi.org/project/error404/)
+[![Downloads](https://pepy.tech/badge/error404)](https://pepy.tech/project/error404)
+[![LGTM Grade](https://img.shields.io/lgtm/grade/python/g/harens/error404.svg)](https://lgtm.com/projects/g/harens/error404/overview/)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/harens/error404.svg)](https://codeclimate.com/github/harens/error404)
+[![Codacy grade](https://img.shields.io/codacy/grade/6e4af45add524fbc8b173760e5a72eb0.svg)](https://app.codacy.com/project/harens/error404/dashboard)
+[![Latest PyPi release version number](https://img.shields.io/pypi/v/error404.svg?logoColor=violet)](https://pypi.org/project/error404/)
+[![Current state (Alpha/Beta/Stable etc.)](https://img.shields.io/pypi/status/error404.svg)](https://pypi.org/project/error404/)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/error404.svg)](https://pypi.org/project/error404/)
 
 __*An easy-to-use testing module, that doesn't require the terminal!*__
 
