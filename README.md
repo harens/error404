@@ -2,8 +2,7 @@
 
 [![Downloads](https://pepy.tech/badge/error404)](https://pepy.tech/project/error404)
 [![LGTM Grade](https://img.shields.io/lgtm/grade/python/g/harens/error404.svg)](https://lgtm.com/projects/g/harens/error404/overview/)
-[![Latest PyPi release version number](https://img.shields.io/pypi/v/error404.svg?logoColor=violet)](https://pypi.org/project/error404/)
-[![Supported Python versions](https://img.shields.io/pypi/pyversions/error404.svg)](https://pypi.org/project/error404/)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/error404?color=indigo)
 
 __*An easy-to-use testing module, that doesn't require the terminal!*__
 
